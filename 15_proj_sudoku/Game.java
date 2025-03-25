@@ -71,21 +71,21 @@ public class Game {
 
     //PRINTA O GAME
     public void printarGame() {
-        System.out.print("    "); // Espaço para alinhar os números da horizontal
+        System.out.print("    "); 
         for (int i = 0; i < 9; i++) {
             
             if(i==2 || i==5){
-                System.out.print(i + "   "); // Índices da horizontal
+                System.out.print(i + "   "); 
             }else{
-                System.out.print(i + " "); // Índices da horizontal
+                System.out.print(i + " "); 
             }
         }
         System.out.println("\n    -------------------------");
     
         for (int linhaQuadrado = 0; linhaQuadrado < 3; linhaQuadrado++) {
             for (int linha = 0; linha < 3; linha++) {
-                int indiceVertical = linhaQuadrado * 3 + linha; // Índice da vertical
-                System.out.print(indiceVertical + " | "); // Índices da vertical
+                int indiceVertical = linhaQuadrado * 3 + linha;
+                System.out.print(indiceVertical + " | "); 
     
                 for (int colunaQuadrado = 0; colunaQuadrado < 3; colunaQuadrado++) {
                     int quadradoIndex = linhaQuadrado * 3 + colunaQuadrado; 
