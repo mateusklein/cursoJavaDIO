@@ -1,7 +1,144 @@
-public class Main {
-    public static void main(String[] args) {
-        var game = new Game();
+import java.util.*;
 
+public class Main {
+
+    public static void main(String[] args) {
+        var opcao = 1;
+        Game game = new Game();
+        int vert;
+        int hor;
+        int num;
+        Boolean erro;
+        do{
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("1 - Iniciar novo jogo");
+            System.out.println("2 - Colocar novo número");
+            System.out.println("3 - Remover um número");
+            System.out.println("4 - Verificar jogo");
+            System.out.println("5 - Verificar status do jogo");
+            System.out.println("6 - Limpar todos os números digitados");
+            System.out.println("7 - Finalizar jogo");
+            System.out.println("0 - Sair");
+            System.out.println("Escolha uma das opções:");
+            opcao = scanner.nextInt();
+            erro = true;
+
+
+            switch (opcao) {
+                case 1:
+                    System.out.println("=========INICIANDO NOVO JOGO=============");
+                    iniciarJogo(game);
+                    System.out.println("=========================================");
+                    break;
+                case 2:
+                    if(game.getStatus().equals("Não iniciado")){
+                        System.out.println("Game ainda não iniciado, precisa iniciar para ativar essa função");
+                    }else{
+                        System.out.println("=========COLOCANDO UM NÚMERO=============");                   
+                        do{
+                            System.out.println("Digite o número (de 1 a 9), a sua posição vertical e horizontal (de 0 a 8) separados por vírgula - EXEMPLO: 2, 0, 3");
+                            var entrada = scanner.next();
+                            List<String> lista = Arrays.asList(entrada.split(","));
+                            while(lista.size()!=3){
+                                System.out.println("Número de entradas menor ou excedido, digite novamente");
+                                entrada = scanner.next();
+                                lista = Arrays.asList(entrada.split(","));
+                            }
+                            num = Integer.parseInt(lista.get(0));
+                            vert = Integer.parseInt(lista.get(1));
+                            hor = Integer.parseInt(lista.get(2));
+                            
+                            if(num<1 || num>9 || vert<0 || vert>8 || hor<0 || hor>8){
+                                System.out.println("Número deve estar entre 1 e 9 / horizontal e vertical entre 0 e 8, tente novamente");
+                            }else{
+                                erro=false;
+                            }
+                        }while (erro == true);
+                        String numString = String.valueOf(num);
+                        game.colocarNumero(numString, vert, hor);
+                        System.out.println("=========================================");
+                    }
+                    break;
+                case 3:
+                    if(game.getStatus().equals("Não iniciado")){
+                        System.out.println("Game ainda não iniciado, precisa iniciar para ativar essa função");
+                    }else{
+                        System.out.println("=========REMOVENDO UM NÚMERO=============");
+                        do{
+                            System.out.println("Digite a sua posição vertical e horizontal (de 0 a 8) separados por vírgula - EXEMPLO: 2, 0, 3");
+                            var entrada = scanner.next();
+                            List<String> lista = Arrays.asList(entrada.split(","));
+                            while(lista.size()!=2){
+                                System.out.println("Número de entradas menor ou excedido, digite novamente");
+                                entrada = scanner.next();
+                                lista = Arrays.asList(entrada.split(","));
+                            }
+                            vert = Integer.parseInt(lista.get(0));
+                            hor = Integer.parseInt(lista.get(1));
+
+                            if(vert<0 || vert>8 || hor<0 || hor>8){
+                                System.out.println("Vertical/orizontal deve estar entre 0 e 8, tente novamente");
+                            }else{
+                                erro=false;
+                            }
+                        }while (erro == true);
+                        game.removerNumero(vert, hor);
+                        System.out.println("=========================================");
+                    }
+                    break;
+                case 4:
+                    if(game.getStatus().equals("Não iniciado")){
+                        System.out.println("Game ainda não iniciado, precisa iniciar para ativar essa função");
+                    }else{
+                        System.out.println("===========VERIFICAR JOGO================");
+                        game.printarGame();
+                        System.out.println("=========================================");
+                    }
+                    break;
+                case 5:
+                    System.out.println("===========VERIFICAR STATUS===============");
+                    System.out.println(game.getStatus());
+                    System.out.println("=========================================");
+                    break;
+                case 6:
+                    if(game.getStatus().equals("Não iniciado")){
+                        System.out.println("Game ainda não iniciado, precisa iniciar para ativar essa função");
+                    }else{
+                        System.out.println("==========LIMPAR OS NÚMEROS==============");
+                        game.limpar();
+                        System.out.println("Jogo limpo:");
+                        game.printarGame();
+                        System.out.println("=========================================");
+                    }
+                    break;
+                case 7:
+                    if(game.getStatus().equals("Não iniciado")){
+                        System.out.println("Game ainda não iniciado, precisa iniciar para ativar essa função");
+                    }else{
+                        System.out.println("===========FINALIZAR O JOGO===============");
+                        game.finishGame();
+                        System.out.println("=========================================");
+                    }
+                    break;
+                case 0:
+                    System.out.println("=============SAIR DO JOGO================");
+                    if(game.getStatus().equals("Não iniciado")){
+                        System.out.println("Você encerrou sem iniciar o jogo");
+                    }else{
+                        System.out.println("Você encerrou o jogo dessa maneira:");
+                        game.printarGame();
+                    }
+                    System.out.println("=========================================");
+                    break;
+                default:
+                    break;
+            }
+        }while(opcao!=0);
+    }
+
+
+    public static Game iniciarJogo(Game game){
+        game.iniciarGame();
         game.colocarFixo("9",0,0);
         game.colocarFixo("5",0,1);
         game.colocarFixo("8",0,2);
@@ -48,11 +185,6 @@ public class Main {
         game.colocarFixo("6",8,7);
         game.colocarFixo("3",8,8);
 
-        
-
-
-
-        game.printarGame();
-        game.printarGameFixo();
+        return game;
     }
 }
