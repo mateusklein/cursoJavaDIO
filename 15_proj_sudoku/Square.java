@@ -1,15 +1,14 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Square {
     public static final  int MAX_NUM = 9;
-    public List<String> square = new ArrayList<>();
+    public List<Integer> square = new ArrayList<>();
     public List<Boolean> squareFixo = new ArrayList<>();
 
     public Square() {
         //CRIANDO UMA LISTA COM 9 POSICOES
         for (int i = 0; i < MAX_NUM; i++) {
-            square.add(" ");
+            square.add(null);
             squareFixo.add(false);
         }
     }
@@ -20,12 +19,12 @@ public class Square {
     }
 
 
-    public List<String> getSquare() {
+    public List<Integer> getSquare() {
         return square;
     }
 
 
-    public void setSquare(List<String> square) {
+    public void setSquare(List<Integer> square) {
         if (square.size() == MAX_NUM) {
             this.square = square;
         } else {
@@ -34,7 +33,7 @@ public class Square {
     }
 
 
-    public String getSquarePos(int i) {
+    public Integer getSquarePos(int i) {
         if(i>=0 && i<MAX_NUM){
             return square.get(i);
         }else{
@@ -43,7 +42,7 @@ public class Square {
     }
 
 
-    public void setSquarePos(int i, String num) {
+    public void setSquarePos(int i, Integer num) {
         if(i>=0 && i<MAX_NUM){
             square.set(i, num);
         }else{
@@ -85,10 +84,9 @@ public class Square {
     //FUNÇÃO PARA VERIFICAR SE HÁ UM ERRO NO SQUARE (NUMEROS REPETIDOS)
     public Boolean verErro(){
         for(int i=0; i<MAX_NUM-1; i++){
-            for(int j=i+1; j<MAX_NUM; j++){
-                if((!square.get(i).equals(" ") || !square.get(j).equals(" ")) && square.get(i).equals(square.get(j))){
-                    return true;
-                }
+            Integer num = square.get(i);
+            if(num != null && square.contains(num)){
+                return true;
             }
         }
         return false;
@@ -97,10 +95,8 @@ public class Square {
 
     //FUNÇÃO QUE VERIFICA SE HÁ VAZIO DENTRO DO SQUARE
     public Boolean verVazio(){
-        for(int i=0; i<MAX_NUM-1; i++){
-            if(square.get(i).equals(" ")){
-                return true;
-            }
+        if(square.contains(null)){
+            return true;
         }
         return false;
     }

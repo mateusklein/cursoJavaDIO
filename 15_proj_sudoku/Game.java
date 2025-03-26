@@ -62,7 +62,7 @@ public class Game {
             squareAtual = squares.get(i);
             for(int j=0; j<MAX_NUM; j++){
                 if(!squareAtual.getSquareFixoPos(j)){
-                    squareAtual.setSquarePos(j, " ");
+                    squareAtual.setSquarePos(j, null);
                 }
             }
         }
@@ -91,7 +91,11 @@ public class Game {
                     int quadradoIndex = linhaQuadrado * 3 + colunaQuadrado; 
                     for (int coluna = 0; coluna < 3; coluna++) {
                         int posicaoIndex = linha * 3 + coluna;
-                        System.out.print(squares.get(quadradoIndex).getSquarePos(posicaoIndex) + " ");
+                        if(squares.get(quadradoIndex).getSquarePos(posicaoIndex)==null){
+                            System.out.print("  ");
+                        }else{
+                            System.out.print(squares.get(quadradoIndex).getSquarePos(posicaoIndex) + " ");
+                        }
                     }
                     System.out.print("| ");
                 }
@@ -128,13 +132,13 @@ public class Game {
     }
 
     //FUNÇÃO PARA ADICIONAR UM NÚMERO DADO UMA POSIÇÃO VERTICAL E HORIZONTAL
-    public void colocarNumero(String num, int vertical, int horizontal){
+    public void colocarNumero(int num, int vertical, int horizontal){
         int posSquare = (vertical/3) * 3 + (horizontal/3);
         int posInterna = (vertical%3) * 3 + (horizontal%3);
         
         if(squares.get(posSquare).getSquareFixoPos(posInterna)){
             System.out.println("Não é possível colocar um número na posição passada pois se trata de um fixo");
-        }else if(!squares.get(posSquare).getSquarePos(posInterna).equals(" ")){
+        }else if(squares.get(posSquare).getSquarePos(posInterna) != null){
             System.out.println("Já possui um numero onde deseja colocar, favor remover antes de tentar novamente");
         }else if(squares.get(posSquare).getSquare().contains(num)){
             System.out.println("Já possui o mesmo numero no square que deseja colocar");
@@ -161,10 +165,10 @@ public class Game {
         
         if(squares.get(posSquare).getSquareFixoPos(posInterna)){
             System.out.println("Não é possível remover um número na posição passada pois se trata de um fixo");
-        }else if(squares.get(posSquare).getSquarePos(posInterna).equals(" ")){
+        }else if(squares.get(posSquare).getSquarePos(posInterna) == null){
             System.out.println("Como o espaço estava vazio não foi necessário a remoção");
         }else{
-            squares.get(posSquare).setSquarePos(posInterna, " ");
+            squares.get(posSquare).setSquarePos(posInterna, null);
             System.out.println("Número removido na posição");
             if(!verVazios() && !verErros()){
                 status = "Completo, sem erros";
@@ -180,7 +184,7 @@ public class Game {
 
 
     //COLOCA UM NÚMERO FIXO NO JOGO
-    public void colocarFixo(String num, int vertical, int horizontal){
+    public void colocarFixo(int num, int vertical, int horizontal){
         int posSquare = (vertical/3) * 3 + (horizontal/3);
         int posInterna = (vertical%3) * 3 + (horizontal%3);
     
@@ -228,10 +232,10 @@ public class Game {
     //PASSA POR TODAS AS HORIZONTAIS VERIFICANDO SE HÁ ERRO NELAS
     public Boolean verErroHor() {
         for (int horizontal = 0; horizontal < MAX_NUM; horizontal++) {
-            List<String> valoresVistos = new ArrayList<>();
+            List<Integer> valoresVistos = new ArrayList<>();
             for (int vertical = 0; vertical < MAX_NUM; vertical++) {
-                String comparador = squares.get(posSquare(vertical, horizontal)).getSquarePos(posInterna(vertical, horizontal));
-                if (!comparador.equals(" ")) {
+                Integer comparador = squares.get(posSquare(vertical, horizontal)).getSquarePos(posInterna(vertical, horizontal));
+                if (comparador != null){
                     if (valoresVistos.contains(comparador)) {
                         return true;
                     }
@@ -245,10 +249,10 @@ public class Game {
     //PASSA POR TODAS AS VERTICAIS VERIFICANDO SE HÁ ERRO NELAS
     public Boolean verErroVert() {
         for (int vertical = 0; vertical < MAX_NUM; vertical++) {
-            List<String> valoresVistos = new ArrayList<>();
+            List<Integer> valoresVistos = new ArrayList<>();
             for (int horizontal = 0; horizontal < MAX_NUM; horizontal++) {
-                String comparador = squares.get(posSquare(vertical, horizontal)).getSquarePos(posInterna(vertical, horizontal));
-                if (!comparador.equals(" ")) {
+                Integer comparador = squares.get(posSquare(vertical, horizontal)).getSquarePos(posInterna(vertical, horizontal));
+                if (comparador!=null) {
                     if (valoresVistos.contains(comparador)) {
                         return true;
                     }
