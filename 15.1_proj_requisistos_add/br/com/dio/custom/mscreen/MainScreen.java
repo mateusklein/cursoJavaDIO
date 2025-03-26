@@ -2,8 +2,11 @@ package br.com.dio.custom.mscreen;
 
 import br.com.dio.custom.button.*;
 import br.com.dio.Game;
+import br.com.dio.Square;
 import br.com.dio.custom.panel.MainPanel;
 import br.com.dio.custom.frame.MainFrame;
+import br.com.dio.custom.input.NumberText;
+import br.com.dio.custom.panel.SudokuSector;
 
 import java.util.*;
 
@@ -58,11 +61,44 @@ public class MainScreen {
     public void buildMainScreen(){
         JPanel mainPanel = new MainPanel(dimension);
         JFrame mainFrame = new MainFrame(dimension, mainPanel);
+
+        for(int r=0; r<9;r+=3){
+            var endRow = r+2;
+            for(int c=0; c<9;r+=3){
+                var endCol = c+2;
+                var spaces = getSpacesFromSector(game, c, endCol, r, endRow);
+                var squarecorresp = game.posSquare(c,r);
+                JPanel sector = generateSection(spaces, game.getSquare(squarecorresp));
+                mainPanel.add(sector);
+            }
+        }
         addResetButton(mainPanel);
         addShowGameStatusButton(mainPanel);
         addFinishGameButton(mainPanel);
         mainFrame.revalidate();
         mainFrame.repaint();
+    }
+
+    private JPanel generateSection(final List<Integer> numbers, Square square) {
+        List<NumberText> fields = new ArrayList<>();
+        
+        for (int i = 0; i < numbers.size(); i++) {
+            fields.add(new NumberText(square, i));  // Passar o Square e a posição correta
+        }
+        
+        return new SudokuSector(fields);
+    }
+
+
+    private List<Integer> getSpacesFromSector(Game game, final int initColl, final int endCol, final int initRow, final int endRow){
+        List<Integer> spaceSector = new ArrayList<>();
+        for(int r=initRow; r<endRow; r++){
+            for(int c=initColl; c<endCol; c++){
+                spaceSector.add(game.getSquare(c).getSquarePos(r));
+            }
+        }
+        return spaceSector;
+
     }
 
     private void addResetButton(final JPanel mainPanel){

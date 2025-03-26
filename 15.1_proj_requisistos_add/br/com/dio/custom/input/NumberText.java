@@ -4,8 +4,6 @@ import br.com.dio.Square;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Font.PLAIN;
-
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -23,7 +21,7 @@ public class NumberText extends JTextField {
         this.setSize(dimension);
         this.setPreferredSize(dimension);
         this.setVisible(true);
-        this.setFont(new Font("Arial", PLAIN, 20));
+        this.setFont(new Font("Arial", Font.PLAIN, 20));
         this.setHorizontalAlignment(CENTER);
         this.setDocument(new NumberTextLimit());
         this.setEnabled(!square.getSquareFixoPos(posicao));
@@ -31,6 +29,8 @@ public class NumberText extends JTextField {
         if(square.getSquareFixoPos(posicao)){
             this.setText(square.getSquarePos(posicao).toString());
         }
+        
+        // Corrigido: A classe anônima DocumentListener agora implementa corretamente os métodos
         this.getDocument().addDocumentListener(new DocumentListener() {
             private void changeSpace(){
                 if(getText().isEmpty()){
@@ -41,17 +41,17 @@ public class NumberText extends JTextField {
             }
             
             @Override
-            private void insertUpdate(final DocumentEvent e){
+            public void insertUpdate(final DocumentEvent e){  // Mudado de private para public
                 changeSpace();
             }
 
             @Override
-            private void removeUpdate(final DocumentEvent e){
+            public void removeUpdate(final DocumentEvent e){  // Mudado de private para public
                 changeSpace();
             }
 
             @Override
-            private void changeUpdate(final DocumentEvent e){
+            public void changedUpdate(final DocumentEvent e){  // Mudado de private para public
                 changeSpace();
             }
         });
