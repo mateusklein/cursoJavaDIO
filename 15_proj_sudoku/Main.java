@@ -138,6 +138,8 @@ public class Main {
 
     public static Game iniciarJogo(Game game){
         game.iniciarGame();
+        /*
+        //USANDO NÚMEROS DO EXEMPLO:
         game.colocarFixo(9,0,0);
         game.colocarFixo(5,0,1);
         game.colocarFixo(8,0,2);
@@ -183,6 +185,32 @@ public class Main {
         game.colocarFixo(7,8,6);
         game.colocarFixo(6,8,7);
         game.colocarFixo(3,8,8);
+        */
+
+
+        
+        //USANDO NUMEROS RANDOM, A CADA VEZ QUE O USUÁRIO REINICIAR PODE SER UM JOGO DIFERENTE
+        Random random = new Random();
+        Set<String> numerosGerados = new HashSet<>();
+        List<int[]> valoresGerados = new ArrayList<>();
+
+        int qtd = random.nextInt(38) + 1; // Gera um número entre 1 e 38
+
+        while (valoresGerados.size() < qtd) { 
+            int num = random.nextInt(9) + 1; //Gera numero entre 1 e 9
+            int numHorizontal = random.nextInt(9); // Gera entre 0 e 8
+            int numVertical = random.nextInt(9); //Gera entre 0 e 8
+            String chave = num + "," + numVertical + "," + numHorizontal;
+
+            if (!numerosGerados.contains(chave)) { 
+                numerosGerados.add(chave);
+                valoresGerados.add(new int[]{num, numVertical, numHorizontal});
+            }
+        }
+
+        for (int[] valores : valoresGerados) {
+            game.colocarFixo(valores[0], valores[1], valores[2]);
+        }
 
         return game;
     }
