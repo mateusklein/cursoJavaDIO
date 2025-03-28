@@ -1,0 +1,7 @@
+public -> método público estará visível para todas as classes, em qualquer pacote 
+
+private -> visível apenas dentro da própria classe, nenhuma outra pode acessar diretamente
+
+protected -> visível para classes no mesmo pacote e subclasses (mesmo que estejam em outros pacotes)
+
+default -> visível apenas dentro do mesmo pacote
