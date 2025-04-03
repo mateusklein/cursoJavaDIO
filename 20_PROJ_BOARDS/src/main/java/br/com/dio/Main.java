@@ -1,5 +1,4 @@
 package br.com.dio;
-
 import br.com.dio.dao.BlockDAO;
 import br.com.dio.dao.BoardDAO;
 import br.com.dio.dao.CardDAO;
@@ -14,9 +13,11 @@ public class Main {
     public static BoardColumnDAO columnDAO;
     public static CardDAO cardDAO;
     public static BlockDAO blockDAO;
+    public static Scanner scanner = new Scanner(System.in);
+
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+
 
 
         int option = 1;
@@ -210,8 +211,6 @@ public class Main {
                 default:
                     break;
             }
-
-
         }while(option != 0);
     }
 

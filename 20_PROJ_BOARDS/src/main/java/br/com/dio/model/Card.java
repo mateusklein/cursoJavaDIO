@@ -2,7 +2,6 @@ package br.com.dio.model;
 import lombok.Data;
 
 import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Data
 public class Card {
