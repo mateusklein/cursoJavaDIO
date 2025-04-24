@@ -1,0 +1,82 @@
+- Protocolos de comunicação que regem o comportamento das pontas entre a internet
+
+- Protocolo HTTP:
+HyperText Transfer Protocol
+Protocolo de comunicação
+Cliente envia as mensagens de request e servidor responde com mensagem responde
+Arquitetura client-server
+Stateless -> servidor não possui estado do cliente
+Mensagens http: 
+	Tipos: request e response
+	GET (solicita uma informação, enviando uma url por exemplo) -> seleção
+	POST (envia conteúdo ao servidor e ele é obrigado a tratar) -> atualização
+	PUT -> insercao
+	DELETE -> deleção
+Arquivos: XML e JSON
+	- Auto-descritivos
+	- Hierarquico
+	- Independente de linguagem de programação
+	- Vasta utilização
+Response:
+	- Information (100-199)
+	- Succesfull (200-299)
+	- Redirection (300-399)
+	- Client-error (400-499)
+	- Server-error (500-599)
+
+COOKIES:
+	- Blocos que armazenam informações dos clientes
+	- Estão dentro do header file 
+	- Cookies de sessão e persistentes
+CACHING:
+	- Entidade que fica no meio do caminho salvando informações de requisição (web cache - proxy server)
+	- Caso ele tenha as informações solicitadas ele já retorna
+	- Reduz o tempo de resposta
+	- Reduz o tráfego
+
+Servidores:
+	- NGINX
+	- APACHE
+
+Wireshark é uma ferramenta utilizada para capturar a troca de mensagens http
+
+
+DIFERENÇAS ENTRE HTTP E HTTPS:
+
+Conceitos de segurança:
+	- Criptografia por chave
+		- Mapeamento de um texto legível para um ilegível através de uma chave
+		- Assimétrica (chave privada e publica) e simétrica (chave única privada)
+	- Certificado digital
+		- Verificar pela chave a autenticidade (certification authority)
+
+Protocolo SSL:
+	- Segurança para conexões TCP
+	- Tres fases: handshake, key derivation e data transfer
+
+HTTPS é o HTTP + SSL
+Verificação da autenticidade por certificados digitais
+
+
+
+
+PROTOCOLO WEBSOCKET:
+- Voltada para aplicações web
+- Utiliza a estrutura do http (está encapsulado)
+
+Funcionamento:
+	- API do websocket roda por cima do http
+	- Handshake e data transfer
+	- Handshake de 2 vias: envia SYN e recebe SYN, ACK 
+
+
+
+
+
+
+
+
+
+
+
+
